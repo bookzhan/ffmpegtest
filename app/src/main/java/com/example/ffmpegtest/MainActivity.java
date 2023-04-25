@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'ffmpegtest' library on application startup.
     static {
+        System.loadLibrary("bzffmpeg");
         System.loadLibrary("ffmpegtest");
     }
 

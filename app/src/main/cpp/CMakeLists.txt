@@ -31,62 +31,14 @@ add_library( # Sets the name of the library.
 # you want to add. CMake verifies that the library exists before
 # completing its build.
 
-add_library(mp3lame-lib
-        STATIC
-        IMPORTED)
-set_target_properties(mp3lame-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libmp3lame.a)
+#configure_file(${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libbzffmpeg.so ${CMAKE_CACHEFILE_DIR}/libbzffmpeg.so COPYONLY)
 
-add_library(x264-lib
-        STATIC
+add_library(bzffmpeg-lib
+        SHARED
         IMPORTED)
-set_target_properties(x264-lib
+set_target_properties(bzffmpeg-lib
         PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libx264.a)
-
-add_library(avutil-lib
-        STATIC
-        IMPORTED)
-set_target_properties(avutil-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavutil.a)
-
-add_library(avcodec-lib
-        STATIC
-        IMPORTED)
-set_target_properties(avcodec-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavcodec.a)
-
-add_library(avfilter-lib
-        STATIC
-        IMPORTED)
-set_target_properties(avfilter-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavfilter.a)
-
-add_library(swresample-lib
-        STATIC
-        IMPORTED)
-set_target_properties(swresample-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libswresample.a)
-
-add_library(avformat-lib
-        STATIC
-        IMPORTED)
-set_target_properties(avformat-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavformat.a)
-
-
-add_library(swscale-lib
-        STATIC
-        IMPORTED)
-set_target_properties(swscale-lib
-        PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libswscale.a)
+        libbzffmpeg.so)
 
 find_library(m-lib m)
 find_library(z-lib z)
@@ -130,4 +82,4 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        ${android-lib} ${m-lib} ${z-lib} mp3lame-lib x264-lib avutil-lib avcodec-lib avfilter-lib swresample-lib avformat-lib swscale-lib ${log-lib})
+        ${android-lib} ${m-lib} ${z-lib} bzffmpeg-lib ${log-lib})
