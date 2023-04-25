@@ -88,6 +88,9 @@ set_target_properties(swscale-lib
         PROPERTIES IMPORTED_LOCATION
         ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libswscale.a)
 
+find_library(m-lib m)
+find_library(z-lib z)
+find_library(android-lib android)
 
 include_directories(
         ./
@@ -127,4 +130,4 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        mp3lame-lib x264-lib avutil-lib avcodec-lib avfilter-lib swresample-lib avformat-lib swscale-lib ${log-lib})
+        ${android-lib} ${m-lib} ${z-lib} mp3lame-lib x264-lib avutil-lib avcodec-lib avfilter-lib swresample-lib avformat-lib swscale-lib ${log-lib})

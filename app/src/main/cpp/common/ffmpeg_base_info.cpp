@@ -39,18 +39,18 @@ int getFFmpegConfigure(char *info) {
 }
 
 int getFFmpegSupportProtocol(char *info) {
-    struct URLProtocol *pup = NULL;
+    struct URLProtocol *pup = nullptr;
     int ret = 0;
     //Input
     struct URLProtocol **p_temp = &pup;
     avio_enum_protocols((void **) p_temp, 0);
-    while ((*p_temp) != NULL) {
+    while ((*p_temp) != nullptr) {
         ret = sprintf(info, "%s[In ][%10s]\n", info, avio_enum_protocols((void **) p_temp, 0));
     }
-    pup = NULL;
+    pup = nullptr;
     //Output
     avio_enum_protocols((void **) p_temp, 1);
-    while ((*p_temp) != NULL) {
+    while ((*p_temp) != nullptr) {
         ret = sprintf(info, "%s[Out][%10s]\n", info, avio_enum_protocols((void **) p_temp, 1));
     }
     return ret;
@@ -58,26 +58,29 @@ int getFFmpegSupportProtocol(char *info) {
 
 int getFFmpegSupportAVFormat(char *info) {
     int ret = 0;
-   const AVInputFormat *if_temp = av_demuxer_iterate(NULL);
-    const AVOutputFormat *of_temp = av_muxer_iterate(NULL);
+    void *opaque_in = nullptr;
+    void *opaque_out = nullptr;
+    const AVInputFormat *if_temp = av_demuxer_iterate(&opaque_in);
+    const AVOutputFormat *of_temp = av_muxer_iterate(&opaque_out);
     //Input
-    while (if_temp != NULL) {
+    while (if_temp != nullptr) {
         ret = sprintf(info, "%s[In ][%10s]\n", info, if_temp->name);
-        if_temp = av_demuxer_iterate(NULL);;
+        if_temp = av_demuxer_iterate(&opaque_in);;
     }
     //Output
-    while (of_temp != NULL) {
+    while (of_temp != nullptr) {
         ret = sprintf(info, "%s[Out][%10s]\n", info, of_temp->name);
-        of_temp = av_muxer_iterate(NULL);
+        of_temp = av_muxer_iterate(&opaque_out);
     }
     return ret;
 }
 
 int getFFmpegSupportAVCodec(char *info) {
     int ret = 0;
-   const AVCodec *c_temp = av_codec_iterate(NULL);
+    void *opaque = nullptr;
+    const AVCodec *c_temp = av_codec_iterate(&opaque);
 
-    while (c_temp != NULL) {
+    while (c_temp != nullptr) {
         if (av_codec_is_decoder(c_temp) != 0) {
             ret = sprintf(info, "%s[Dec]", info);
         } else {
@@ -95,30 +98,31 @@ int getFFmpegSupportAVCodec(char *info) {
                 break;
         }
         ret = sprintf(info, "%s[%10s]\n", info, c_temp->name);
-        c_temp =av_codec_iterate(NULL);
+        c_temp = av_codec_iterate(&opaque);
     }
     return ret;
 }
 
 int getFFmpegSupportAVFilter(char *info) {
     int ret = 0;
-    const AVFilter *f_temp = av_filter_iterate(NULL);
-    while (NULL != f_temp) {
+    void *opaque = nullptr;
+    const AVFilter *f_temp = av_filter_iterate(&opaque);
+    while (nullptr != f_temp) {
         ret = sprintf(info, "%s[%10s]\n", info, f_temp->name);
-        f_temp = av_filter_iterate(NULL);
+        f_temp = av_filter_iterate(&opaque);
     }
     return ret;
 }
 
 int testLib() {
     const AVCodec *avCodec = avcodec_find_decoder(AV_CODEC_ID_H264);
-    if (NULL == avCodec) {
+    if (nullptr == avCodec) {
         BZLogUtil::logD("avcodec_find_decoder AV_CODEC_ID_H264 未发现");
     } else {
         BZLogUtil::logD("avcodec_find_decoder AV_CODEC_ID_H264 正常");
     }
     const AVCodec *avCodecAAC = avcodec_find_decoder(AV_CODEC_ID_AAC);
-    if (NULL == avCodecAAC) {
+    if (nullptr == avCodecAAC) {
         BZLogUtil::logD("avcodec_find_decoder AV_CODEC_ID_AAC 未发现");
     } else {
         BZLogUtil::logD("avcodec_find_decoder AV_CODEC_ID_AAC 正常");
@@ -126,21 +130,21 @@ int testLib() {
 
 
     const AVCodec *avCodecEncoder = avcodec_find_encoder(AV_CODEC_ID_H264);
-    if (NULL == avCodecEncoder) {
+    if (nullptr == avCodecEncoder) {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_H264 未发现");
     } else {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_H264 正常");
     }
 
     const AVCodec *avCodecEncoderMp3 = avcodec_find_encoder(AV_CODEC_ID_MP3);
-    if (NULL == avCodecEncoderMp3) {
+    if (nullptr == avCodecEncoderMp3) {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_MP3 未发现");
     } else {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_MP3 正常");
     }
 
     const AVCodec *avCodecAACEncoder = avcodec_find_encoder(AV_CODEC_ID_AAC);
-    if (NULL == avCodecAACEncoder) {
+    if (nullptr == avCodecAACEncoder) {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_AAC 未发现");
     } else {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_AAC 正常");
