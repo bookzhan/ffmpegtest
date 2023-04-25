@@ -136,12 +136,14 @@ int testLib() {
         BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_H264 正常");
     }
 
-    const AVCodec *avCodecEncoderMp3 = avcodec_find_encoder(AV_CODEC_ID_MP3);
-    if (nullptr == avCodecEncoderMp3) {
-        BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_MP3 未发现");
+
+    const AVCodec *avCodecDecoderMp3 = avcodec_find_decoder(AV_CODEC_ID_MP3);
+    if (nullptr == avCodecDecoderMp3) {
+        BZLogUtil::logD("avcodec_find_decoder AV_CODEC_ID_MP3 未发现");
     } else {
-        BZLogUtil::logD("avcodec_find_encoder AV_CODEC_ID_MP3 正常");
+        BZLogUtil::logD("avcodec_find_decoder AV_CODEC_ID_MP3 正常");
     }
+
 
     const AVCodec *avCodecAACEncoder = avcodec_find_encoder(AV_CODEC_ID_AAC);
     if (nullptr == avCodecAACEncoder) {
