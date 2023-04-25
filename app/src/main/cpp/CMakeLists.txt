@@ -31,7 +31,7 @@ add_library( # Sets the name of the library.
 # you want to add. CMake verifies that the library exists before
 # completing its build.
 
-#configure_file(${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libbzffmpeg.so ${CMAKE_CACHEFILE_DIR}/libbzffmpeg.so COPYONLY)
+configure_file(${ffmpegtest_SOURCE_DIR}/lib/${ANDROID_ABI}/libbzffmpeg.so ${ffmpegtest_BINARY_DIR}/libbzffmpeg.so COPYONLY)
 
 add_library(bzffmpeg-lib
         SHARED
