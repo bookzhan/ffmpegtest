@@ -22,6 +22,7 @@ add_library( # Sets the name of the library.
 
         # Provides a relative path to your source file(s).
         common/BZLogUtil.cpp
+        common/ffmpeg_base_info.cpp
         native-lib.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
@@ -29,6 +30,86 @@ add_library( # Sets the name of the library.
 # default, you only need to specify the name of the public NDK library
 # you want to add. CMake verifies that the library exists before
 # completing its build.
+
+add_library(mp3lame-lib
+        STATIC
+        IMPORTED)
+set_target_properties(mp3lame-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libmp3lame.a)
+
+add_library(x264-lib
+        STATIC
+        IMPORTED)
+set_target_properties(x264-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libx264.a)
+
+add_library(avutil-lib
+        STATIC
+        IMPORTED)
+set_target_properties(avutil-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavutil.a)
+
+add_library(avcodec-lib
+        STATIC
+        IMPORTED)
+set_target_properties(avcodec-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavcodec.a)
+
+add_library(avfilter-lib
+        STATIC
+        IMPORTED)
+set_target_properties(avfilter-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavfilter.a)
+
+add_library(swresample-lib
+        STATIC
+        IMPORTED)
+set_target_properties(swresample-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libswresample.a)
+
+add_library(avformat-lib
+        STATIC
+        IMPORTED)
+set_target_properties(avformat-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libavformat.a)
+
+
+add_library(swscale-lib
+        STATIC
+        IMPORTED)
+set_target_properties(swscale-lib
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_HOME_DIRECTORY}/lib/${ANDROID_ABI}/libswscale.a)
+
+
+include_directories(
+        ./
+        ./include
+        ./include/${ANDROID_ABI}
+        ./common
+        ./bean
+        ./cmdutilt
+        ./include
+        ./utils
+        ./permission
+        ./include/libavcodec
+        ./include/libavdevice
+        ./include/libavfilter
+        ./include/libavformat
+        ./include/libavutil
+        ./include/libpostproc
+        ./include/libswresample
+        ./include/libswscale
+        ./include/libyuv
+        ./include/soundtouch
+)
 
 find_library( # Sets the name of the path variable.
         log-lib
@@ -46,4 +127,4 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib})
+        mp3lame-lib x264-lib avutil-lib avcodec-lib avfilter-lib swresample-lib avformat-lib swscale-lib ${log-lib})
