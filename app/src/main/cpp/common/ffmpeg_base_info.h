@@ -9,10 +9,10 @@
 #define BZMEDIA_FFMPEG_BASE_INFO_H
 
 extern "C" {
-#include <arm64-v8a/libavcodec/avcodec.h>
-#include <arm64-v8a/libavformat/avformat.h>
-#include <arm64-v8a/libavfilter/avfilter.h>
-#include "arm64-v8a/libavutil/avutil.h"
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavfilter/avfilter.h>
+#include "libavutil/avutil.h"
 }
 
 void printFFmpegBaseInfo();

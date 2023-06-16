@@ -21,8 +21,10 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
+        CallBackTest.cpp
         common/BZLogUtil.cpp
         common/ffmpeg_base_info.cpp
+        common/JvmManager.cpp
         native-lib.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
@@ -53,17 +55,6 @@ include_directories(
         ./cmdutilt
         ./include
         ./utils
-        ./permission
-        ./include/libavcodec
-        ./include/libavdevice
-        ./include/libavfilter
-        ./include/libavformat
-        ./include/libavutil
-        ./include/libpostproc
-        ./include/libswresample
-        ./include/libswscale
-        ./include/libyuv
-        ./include/soundtouch
 )
 
 find_library( # Sets the name of the path variable.
